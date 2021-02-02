@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.  *
  *                                                                        *
  **************************************************************************/
-
+#include "iostream"
 #include "mainwindow.h"
 
 #include "roomlistdock.h"
@@ -74,6 +74,30 @@ using Quotient::Settings;
 using Quotient::AccountSettings;
 using Quotient::Uri;
 
+void MainWindow::keyPressEvent(QKeyEvent *event){
+
+    Qt::KeyboardModifiers mod = event->modifiers();
+//48-57 corresponde a 0 - 9 
+    int key = event->key();
+
+    std::cout <<"Boton Presionado: "<< key<< "\n";
+
+    
+    
+    switch (mod)
+    {
+    case Qt::ControlModifier:
+        if (key == 48){
+            resize(300, 300);   
+        }
+        break;
+    
+    default:
+        QWidget::keyPressEvent(event);
+    }
+
+}
+
 MainWindow::MainWindow()
 {
     Connection::setRoomType<QuaternionRoom>();
@@ -121,6 +145,8 @@ MainWindow::MainWindow()
     busyLabel->show();
     busyIndicator->start();
     QTimer::singleShot(0, this, SLOT(invokeLogin()));
+
+    setFocusPolicy(Qt::ClickFocus);
 }
 
 MainWindow::~MainWindow()

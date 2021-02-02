@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.  *
  *                                                                        *
  **************************************************************************/
+#include <iostream>
 
 #include <QtWidgets/QApplication>
 #include <QtCore/QTranslator>
@@ -31,6 +32,12 @@
 #include "activitydetector.h"
 #include "linuxutils.h"
 #include <settings.h>
+
+enum OpcionDeInicio {
+    Visible,
+    Novisible,
+    Ninguno
+};
 
 void loadTranslations(
         std::initializer_list<std::pair<QStringList, QString>> translationConfigs)
@@ -184,15 +191,63 @@ int main( int argc, char* argv[] )
         window.enableDebug();
     }
 
-    ActivityDetector ad(app, window); Q_UNUSED(ad);
-    if (parser.isSet(hideMainWindow)) {
+     char seleccion = '\0';
+       OpcionDeInicio opcion = OpcionDeInicio::Ninguno;
+
+    while(opcion == OpcionDeInicio::Ninguno ) {
+    
+        std::cout << "Desea que la aplicacion empieze [v]isible o [n]o visible?\n";
+        std::cin >> seleccion;
+
+        switch (seleccion)
+        {
+        case 'N':
+        case 'n':
+        case 'h':
+        case 'H':
+            opcion = OpcionDeInicio::Novisible;
+            break;
+        case 'v':
+        case 'V':
+        case 'm':
+        case 'M':
+            opcion =OpcionDeInicio::Visible;
+            break;
+        default:
+            std::cout <<"La opción '"<< seleccion << "' no es valida. \n";
+            break;
+        }
+
+
+       // if (seleccion == 'N'||seleccion == 'n'||seleccion == 'n'){
+      //      opcion = OpcionesDeInicio::Novisible;
+      //  }
+       // else if (seleccion == 'v'|| seleccion == 'V'|| seleccion == 'm'){
+        //    opcion = OpcionesDeInicio::Visible;
+       // }
+    }
+
+    switch (opcion)
+    {
+    case OpcionDeInicio::Novisible:
         qDebug() << "--- Hide time!";
         window.hide();
-    }
-    else {
+        break;
+    case OpcionDeInicio::Visible:
         qDebug() << "--- Show time!";
         window.show();
+        break;
     }
+
+  //  ActivityDetector ad(app, window); Q_UNUSED(ad);
+   // if (opcion == OpcionDeInicio::Novisible) {//parser.isSet(hideMainWindow)
+    //    qDebug() << "--- Hide time!";
+     //   window.hide();
+   // }
+    //else if(opcion == OpcionDeInicio::Visible) {
+      //  qDebug() << "--- Show time!";
+       // window.show();
+    //}
 
     return app.exec();
 }
