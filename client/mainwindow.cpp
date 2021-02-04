@@ -88,7 +88,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
     {
     case Qt::ControlModifier:
         if (key == 48){
-            resize(300, 300);   
+            resize(300, 300);
+            std::cout <<"Hasta aca llego! \n";
         }
         break;
     
