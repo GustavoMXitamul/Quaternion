@@ -18,6 +18,7 @@
  **************************************************************************/
 
 #include "chatroomwidget.h"
+#include <iostream>
 
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QLabel>
@@ -650,6 +651,28 @@ QString ChatRoomWidget::sendCommand(const QStringRef& command,
 
 void ChatRoomWidget::sendInput()
 {
+
+    std:: string miTexto= m_chatEdit -> toPlainText().toStdString();
+    size_t len = miTexto.size();
+
+    if (len >= 3){
+    char c1 = miTexto [0];
+    char c2 = miTexto [1];
+    char c3 = miTexto [2];
+
+        std:: cout << "Caracter 1:" << c1 << "\n";
+        std:: cout << "Caracter 2:" << c2 << "\n";
+        std:: cout << "Caracter 3:" << c3 << "\n";
+    }
+
+    while (len >= 1)
+    {
+        /* code */
+    }
+    
+
+   // std::cout << "Mi texto es: " << miTexto << "Tamano variable"<< len << "c1"<< c1 << "c2"<< c2 << "c3"<< c3 << "\n";
+
     if (!attachedFileName.isEmpty())
         sendFile();
     else {
