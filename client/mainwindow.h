@@ -83,6 +83,8 @@ class MainWindow: public QMainWindow, public Quotient::UriResolverBase {
 
     protected:
         void keyPressEvent(QKeyEvent *event) override;
+        void resizeEvent(QResizeEvent *newSize) override;
+
 
     private slots:
         void invokeLogin();

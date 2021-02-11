@@ -74,29 +74,55 @@ using Quotient::Settings;
 using Quotient::AccountSettings;
 using Quotient::Uri;
 
-void MainWindow::keyPressEvent(QKeyEvent *event){
+void MainWindow::keyPressEvent(QKeyEvent *event) {
 
     Qt::KeyboardModifiers mod = event->modifiers();
-//48-57 corresponde a 0 - 9 
+
+    // 48 - 57 corresponde a 0 - 9
     int key = event->key();
 
-    std::cout <<"Boton Presionado: "<< key<< "\n";
+   std::cout << "boton presionado: " << key << "\n";
 
-    
-    
-    switch (mod)
-    {
-    case Qt::ControlModifier:
-        if (key == 48){
-            resize(300, 300);
-            std::cout <<"Hasta aca llego! \n";
-        }
-        break;
-    
-    default:
-        QWidget::keyPressEvent(event);
+    /*
+    Modificar de tal form que:
+    - ctl + 1 -> 100x100
+    - ctl + 2 -> 200x200
+    ...
+    - ctl + 9 -> 900x900
+    */
+    switch(mod) {
+
+       case Qt::ControlModifier:
+            if(key == 48) {
+                resize(300, 300);
+            }
+            break;
+        default:
+            QWidget::keyPressEvent(event);
+    }    
+}
+
+void MainWindow::resizeEvent(QResizeEvent *newSize)
+{
+    int width = newSize->size().width();
+    int height = newSize->size().height();
+    int anchoOriginal = newSize->oldSize().width();//Returns the old size (i.e., the size immediately before the widget was resized).
+    int altoOriginal = newSize->oldSize().height();//Returns the old size (i.e., the size immediately before the widget was resized).
+    int area = width * height;
+    int areainicial = anchoOriginal * altoOriginal;
+    int difareas = area - areainicial;
+    std::cout << "El tamano es: (" << width << ", " << height << ")\n";
+    std::cout << "El area inicial es: " << area << "\n";
+
+    if(abs(difareas)>= 400) {
+        std::cout << "Hubo una variacion de 400 pixeles o mas en el area \n";
+        std::cout << "La diferencia en pixeles fue de: "<< difareas<<" \n";
+        std::cout << "Area anterior a la variacion: "<< areainicial<<" \n";
     }
+    
+    else {
 
+    }
 }
 
 MainWindow::MainWindow()
