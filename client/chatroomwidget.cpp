@@ -660,14 +660,18 @@ void ChatRoomWidget::sendInput()
     char c2 = miTexto [1];
     char c3 = miTexto [2];
 
-        std:: cout << "Caracter 1:" << c1 << "\n";
-        std:: cout << "Caracter 2:" << c2 << "\n";
-        std:: cout << "Caracter 3:" << c3 << "\n";
+       // std:: cout << "Caracter 1:" << c1 << "\n";
+      //  std:: cout << "Caracter 2:" << c2 << "\n";
+      //  std:: cout << "Caracter 3:" << c3 << "\n";
     }
+    size_t len = miTexto.size();
+    int i = len;
 
     while (len >= 1)
     {
-        /* code */
+    char c = miTexto [(len-i)];
+    std::cout << "Caracter número: " << ((len-i)+1) << "Caracter: "<< c << "\n";
+    i--;
     }
     
 
