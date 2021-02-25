@@ -19,6 +19,9 @@
 
 #include "mainwindow.h"
 
+#include <iostream>
+#include <vector>
+
 #include "roomlistdock.h"
 #include "userlistdock.h"
 #include "chatroomwidget.h"
